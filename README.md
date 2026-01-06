@@ -108,7 +108,7 @@ ufo_project/
 │   ├── test_parser_edgecases.py  # Testy edge cases
 │   ├── test_repository.py        # Testy agregacji i wyszukiwania
 │   └── test_async_loader.py      # Testy async loadera
-├── main.py                        # punkt wejścia
+├── main.py                       # punkt wejścia
 ├── diagram_klas.puml             # diagram UML (PlantUML)
 ├── requirements.txt              # zależności
 └── README.md                     # dokumentacja
