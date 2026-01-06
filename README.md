@@ -491,22 +491,6 @@ W tym projekcie **nie ma hierarchii dziedziczenia**, ponieważ:
        shape: UFOShape
    ```
 
-**Gdyby było potrzebne:**
-```python
-class BaseSighting(BaseModel):
-    datetime_utc: datetime
-    location: Location
-    
-    def __init__(self, **data):
-        super().__init__(**data)  # Wywołanie __init__ rodzica
-
-class UFOSighting(BaseSighting):
-    shape: UFOShape
-    
-class AircraftSighting(BaseSighting):
-    aircraft_type: str
-```
-
 ---
 
 ## Spełnienie pozostalych wytycznych z zajęć i instrukcji na ostatnich zajęciach
