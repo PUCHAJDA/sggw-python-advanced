@@ -1,0 +1,132 @@
+@startuml
+skinparam classAttributeIconSize 0
+title Diagram klas - UFO Sightings (SOLID + Wzorce Projektowe)
+
+class SightingRepository {
+  - _by_shape: Dict[UFOShape, List[Sighting]]
+  - _by_location: Dict[str, List[Sighting]]
+  - _all: List[Sighting]
+  + add(s:Sighting): void
+  + all(): List[Sighting]
+  + by_shape(shape:UFOShape): List[Sighting]
+  + by_country(country:str): List[Sighting]
+  + top_shapes(n:int): List[(UFOShape,int)]
+  + export_json(): str
+}
+
+class Sighting {
+  - datetime_utc: datetime
+  - duration_seconds: Optional[float]
+  - comments: Optional[str]
+  - location: Location
+  - shape: UFOShape
+  - raw_id: Optional[int]
+  + check_duration(v): float
+}
+
+class Location {
+  - city: Optional[str]
+  - state: Optional[str]
+  - country: Optional[str]
+  - latitude: Optional[float]
+  - longitude: Optional[float]
+  + check_latitude(v): float
+  + check_longitude(v): float
+}
+
+enum UFOShape {
+  LIGHT
+  TRIANGLE
+  CIRCLE
+  DISK
+  FIREBALL
+  ORB
+  UNKNOWN
+  + normalize(s:str): UFOShape
+}
+
+SightingRepository --> Sighting : przechowuje
+Sighting --> Location : zawiera
+Sighting --> UFOShape : zawiera
+
+note right of SightingRepository
+  WZORZEC: REPOSITORY PATTERN
+  Enkapsuluje logike przechowywania
+  
+  SOLID:
+  S - Single Responsibility
+  O - Open/Closed
+  D - Dependency Inversion
+end note
+
+note right of Sighting
+  PYDANTIC DATACLASS
+  Automatyczna walidacja danych
+  field_validator dla duration_seconds
+  
+  DATETIME ZAMIAST STRING
+  datetime_utc: datetime (UTC)
+  
+  KOMPOZYCJA:
+  Zawiera Location i UFOShape
+end note
+
+note right of Location
+  PYDANTIC DATACLASS 
+  Walidacja wspolrzednych GPS
+  field_validator dla lat/long
+  
+  OSOBNA KLASA (min 3 klasy)
+  S - Single Responsibility
+end note
+
+note right of UFOShape
+  ENUM (5 pkt bonus)
+  Type safety
+  Latwe agregacje
+  Normalizacja danych
+  
+  WZORZEC: VALUE OBJECT
+  Immutable wartosci
+end note
+
+note as N1
+SOLID W PROJEKCIE:
+
+S - Single Responsibility:
+  Repository: przechowywanie
+  Parser: konwersja CSV
+  Models: struktura + walidacja
+  Utils: funkcje pomocnicze
+
+O - Open/Closed:
+  Dodawanie metod bez zmian
+
+L - Liskov Substitution:
+  IRepository interface mozliwy
+
+I - Interface Segregation:
+  Tylko potrzebne metody
+
+D - Dependency Inversion:
+  main.py wstrzykuje loader_func
+end note
+
+note as N2
+WZORCE PROJEKTOWE:
+
+1. REPOSITORY PATTERN
+   SightingRepository
+
+2. DEPENDENCY INJECTION
+   run_with_loader()
+
+3. VALUE OBJECT
+   UFOShape (Enum)
+
+4. FACTORY METHOD
+   UFOShape.normalize()
+   parse_row_to_sighting()
+end note
+
+@enduml

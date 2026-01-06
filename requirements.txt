@@ -1,0 +1,6 @@
+pydantic
+pytest
+python-dateutil
+aiofiles
+aiocsv
+pytest-asyncio
