@@ -139,13 +139,7 @@ aiocsv             # async CSV parsing
 pytest-asyncio     # testy async
 ```
 
-### Krok 2: Pobranie danych
-
-1. Pobrać dataset z Kaggle: https://www.kaggle.com/datasets/NUFORC/ufo-sightings
-2. Rozpakować `scrubbed.csv`
-3. Umieść w katalogu `ufo_project/data/scrubbed.csv`
-
-### Krok 3: Uruchomienie
+### Krok 2: Uruchomienie
 
 bezpośrednio:
 cd ufo_project
