@@ -305,18 +305,6 @@ python -m pytest ufo_project/tests/test_models_validators.py -v
 
 ---
 
-## Użyte Biblioteki
-
-| Biblioteka | Zastosowanie | Wymagana? |
-|-----------|--------------|-----------|
-| **pydantic** | BaseModel z walidacją | Tak |
-| **python-dateutil** | Parsowanie różnych formatów dat | Tak |
-| **pytest** | Framework testowy | Tak |
-| **aiofiles** | Async file I/O | Zalecane |
-| **aiocsv** | Async CSV parsing | Zalecane |
-| **pytest-asyncio** | Testy async | Opcjonalnie |
-
----
 
 ## Wzorce Projektowe i SOLID
 
@@ -564,7 +552,7 @@ class AircraftSighting(BaseSighting):
 | **Async** (aiofiles) | ~2-4s | Średnie (200%) | ~150MB |
 | **Synchroniczny** | ~15-20s | Niskie (100%) | ~100MB |
 
-**Kiedy użyć którego**
+**Use cases**
 - **Multithreading:** średnie pliki (10k-500k wierszy)- 
 - **Async:** duże pliki (>500k wierszy), wiele plików jednocześnie
 - **Sync:** małe pliki (<10k wierszy), debugowanie
@@ -573,7 +561,7 @@ class AircraftSighting(BaseSighting):
 
 ## Możliwe rozszerzenia
 
-1. **Web API (FastAPI) / Streamlit **
+1. **Web API (FastAPI) / Streamlit** - minimalny nakład pracy
 2. **Baza danych** - SQLite/PostgreSQL, indeksy, persistent storage
 3. **Wizualizacje** - mapa świata, wykresy trendów, heatmapy
 4. **Machine Learning** - klasyfikacja obserwacji, clustering
